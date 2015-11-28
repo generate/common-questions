@@ -7,6 +7,26 @@
 
 'use strict';
 
-module.exports = function () {
-  // do stuff
+var project = require('project-name');
+
+module.exports = function(options) {
+  options = options || {};
+  return {
+    setDefault: {
+      'author.name': 'Author\'s name?',
+      'author.url': 'Author\'s URL?',
+      'author.username': 'Author\'s GitHub username?'
+    },
+    set: {
+      name: {
+        message: 'Project name?',
+        default: project(process.cwd()),
+        force: !!options.init
+      },
+      description: {
+        message: 'Project description?',
+        force: !!options.init
+      }
+    }
+  };
 };
