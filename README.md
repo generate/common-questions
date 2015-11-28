@@ -1,4 +1,4 @@
-# common-questions [![NPM version](https://badge.fury.io/js/common-questions.svg)](http://badge.fury.io/js/common-questions)  [![Build Status](https://travis-ci.org/jonschlinkert/common-questions.svg)](https://travis-ci.org/jonschlinkert/common-questions)
+# common-questions [![NPM version](https://badge.fury.io/js/common-questions.svg)](http://badge.fury.io/js/common-questions)  [![Build Status](https://travis-ci.org/generate/common-questions.svg)](https://travis-ci.org/generate/common-questions)
 
 > An object of questions commonly used by project generators or when initializing projects. Questions can be overridden, updated or extended.
 
@@ -45,7 +45,7 @@ $ npm i -d && npm test
 
 ## Contributing
 
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/jonschlinkert/common-questions/issues/new).
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/generate/common-questions/issues/new).
 
 ## Author
 
