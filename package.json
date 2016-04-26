@@ -20,18 +20,48 @@
     "test": "mocha"
   },
   "dependencies": {
-    "project-name": "^0.2.4"
+    "base-pkg": "^0.2.2",
+    "mixin-deep": "^1.1.3",
+    "parse-git-config": "^0.4.2"
   },
   "devDependencies": {
-    "mocha": "*"
+    "base": "^0.8.1",
+    "base-questions": "^0.6.0",
+    "gulp-format-md": "^0.1.9",
+    "mocha": "^2.4.5"
   },
+  "keywords": [
+    "base",
+    "common",
+    "questions"
+  ],
   "verb": {
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "reflinks": [
+      "inquirer",
+      "question-cache",
+      "question-store",
+      "verb",
+      "base"
+    ],
     "related": {
       "list": [
-        "question-store",
         "answer-store",
-        "question-cache"
+        "base",
+        "base-questions",
+        "question-cache",
+        "question-store"
       ]
-    }
+    },
+    "toc": false,
+    "layout": "default",
+    "lint": {
+      "reflinks": true
+    },
+    "tasks": [
+      "readme"
+    ]
   }
 }
