@@ -9,6 +9,7 @@
 
 module.exports = function(config) {
   var merge = require('mixin-deep');
+  var pkg = require('base-pkg');
 
   return function(app, base) {
     if (!app.isApp || app.isRegistered('common-questions')) return;
@@ -17,7 +18,7 @@ module.exports = function(config) {
       throw new Error('expected the base-questions plugin to be registered');
     }
     if (typeof app.pkg === 'undefined') {
-      app.use(require('base-pkg')());
+      app.use(pkg());
     }
 
     var opts = merge({}, config, this.options);
@@ -56,6 +57,27 @@ module.exports = function(config) {
      */
 
     app.questions.disable('save')
+      .set('project.name', 'Project name?', {
+        default: projectName(app)
+      })
+      .set('project.alias', 'Project alias?', {
+        default: projectAlias(app)
+      })
+      .set('project.description', 'Project description?', {
+        default: app.pkg.get('description')
+      })
+      .set('project.version', 'Project version?', {
+        default: app.pkg.get('version') || '0.1.0'
+      })
+      .set('project.owner', 'Project owner?', {
+        default: projectOwner(app)
+      })
+
+    /**
+     * Decrecated
+     */
+
+    app.questions.disable('save')
       .set('name', 'Project name?', {
         default: projectName(app)
       })
@@ -75,7 +97,10 @@ module.exports = function(config) {
 };
 
 function projectName(app) {
-  return app.cache.data.name || app.pkg.get('name') || app.project;
+  return app.get('cache.data.name')
+    || app.get('cache.data.project.name')
+    || app.pkg.get('name')
+    || app.project;
 }
 
 function projectAlias(app) {
@@ -89,6 +114,7 @@ function projectAlias(app) {
   if (typeof name === 'string') {
     return name.slice(name.lastIndexOf('-') + 1);
   }
+  return '';
 }
 
 function projectOwner(app) {

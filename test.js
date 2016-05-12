@@ -22,10 +22,10 @@ describe('common-questions', function() {
 
   it('should work as a plugin', function() {
     base.use(questions());
-    assert(base.questions.cache.hasOwnProperty('name'));
-    assert(base.questions.cache.hasOwnProperty('alias'));
-    assert(base.questions.cache.hasOwnProperty('owner'));
-    assert(base.questions.cache.hasOwnProperty('description'));
+    assert(base.questions.cache.hasOwnProperty('project.name'));
+    assert(base.questions.cache.hasOwnProperty('project.alias'));
+    assert(base.questions.cache.hasOwnProperty('project.owner'));
+    assert(base.questions.cache.hasOwnProperty('project.description'));
     assert(base.questions.cache.hasOwnProperty('author.name'));
     assert(base.questions.cache.hasOwnProperty('author.url'));
   });
