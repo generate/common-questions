@@ -7,28 +7,25 @@
 
 'use strict';
 
+var utils = require('./utils');
+
 module.exports = function(config) {
-  var merge = require('mixin-deep');
-  var pkg = require('base-pkg');
-
   return function(app, base) {
-    if (!app.isApp || app.isRegistered('common-questions')) return;
+    if (!utils.isValid(app, 'common-questions')) return;
 
-    if (typeof app.questions === 'undefined') {
-      throw new Error('expected the base-questions plugin to be registered');
-    }
-    if (typeof app.pkg === 'undefined') {
-      app.use(pkg());
-    }
+    /**
+     * Plugins
+     */
 
-    var opts = merge({}, config, this.options);
-    app.cache.data = app.cache.data || {};
+    app.use(utils.project());
+    app.use(utils.questions());
+    app.use(utils.pkg());
 
-    function store(prop) {
-      if (app.globals && app.globals.get) {
-        return app.globals.get(prop);
-      }
-      return app.pkg.get(prop);
+    this.cache.data = this.cache.data || {};
+    if (typeof app.option === 'function') {
+      app.option(config);
+    } else {
+      utils.merge(this.options, config);
     }
 
     /**
@@ -37,19 +34,19 @@ module.exports = function(config) {
 
     app.questions.disable('save')
       .set('author.name', 'Author\'s name?', {
-        default: store('author.name')
+        default: store(app, 'author.name')
       })
       .set('author.username', 'Author\'s GitHub username?', {
-        default: store('author.username')
+        default: store(app, 'author.username')
       })
       .set('author.twitter', 'Author\'s twitter username?', {
-        default: store('author.twitter')
+        default: store(app, 'author.twitter')
       })
       .set('author.email', 'Author\'s email address?', {
-        default: store('author.email')
+        default: store(app, 'author.email')
       })
       .set('author.url', 'Author\'s URL?', {
-        default: store('author.url')
+        default: store(app, 'author.url')
       });
 
     /**
@@ -96,6 +93,16 @@ module.exports = function(config) {
   };
 };
 
+function store(app, prop) {
+  if (app.store && typeof app.store.has === 'function' && app.store.has(prop)) {
+    return app.store.get(prop);
+  }
+  if (app.globals && typeof app.globals.has === 'function' && app.globals.has(prop)) {
+    return app.globals.get(prop);
+  }
+  return app.pkg.get(prop);
+}
+
 function projectName(app) {
   return app.get('cache.data.name')
     || app.get('cache.data.project.name')
@@ -104,11 +111,11 @@ function projectName(app) {
 }
 
 function projectAlias(app) {
-  if (typeof app.aliasFn === 'function') {
-    return app.aliasFn.call(app, projectName(app));
+  if (typeof app.toAlias === 'function') {
+    return app.toAlias.call(app, projectName(app));
   }
-  if (typeof app.options.aliasFn === 'function') {
-    return app.options.aliasFn.call(app, projectName(app));
+  if (typeof app.options.toAlias === 'function') {
+    return app.options.toAlias.call(app, projectName(app));
   }
   var name = projectName(app);
   if (typeof name === 'string') {
@@ -151,8 +158,7 @@ function userIsOwner(app) {
   if (author && typeof author === 'object') {
     author = author.url || author.username;
   }
-  var git = require('parse-git-config');
-  var config = git.sync({cwd: app.cwd});
+  var config = utils.parse.sync({cwd: app.cwd});
   if (!config || !config.user) {
     config = git.sync('global');
   }
