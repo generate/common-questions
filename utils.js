@@ -11,6 +11,7 @@ require = utils;
 require('base-pkg', 'pkg');
 require('base-project', 'project');
 require('base-questions', 'questions');
+require('isobject', 'isObject');
 require('is-valid-app', 'isValid');
 require('mixin-deep', 'merge');
 require('parse-git-config', 'parse');

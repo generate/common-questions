@@ -92,13 +92,30 @@ module.exports = function(config) {
 };
 
 function store(app, prop) {
+  var expanded = app.pkg.expand();
+  utils.merge(app.cache.data, expanded);
+  var val = app.get(['cache.data', prop]);
+  if (typeof val !== 'undefined') {
+    return val;
+  }
   if (app.store && typeof app.store.has === 'function' && app.store.has(prop)) {
     return app.store.get(prop);
   }
   if (app.globals && typeof app.globals.has === 'function' && app.globals.has(prop)) {
     return app.globals.get(prop);
   }
-  return app.pkg.get(prop);
+}
+
+function getAuthor(app) {
+  var author = app.cache.data.author;
+  if (!utils.isObject(author)) {
+    var expanded = app.pkg.expand();
+    var val = expanded.get('author');
+    if (utils.isObject(val)) {
+      author = val;
+    }
+  }
+  return author;
 }
 
 function projectName(app) {
@@ -119,7 +136,6 @@ function projectAlias(app) {
   if (typeof name === 'string') {
     return name.slice(name.lastIndexOf('-') + 1);
   }
-  return '';
 }
 
 function projectOwner(app) {
@@ -145,16 +161,13 @@ function projectOwner(app) {
   if (/^verb-/.test(name)) {
     return 'verbose';
   }
-  return app.cache.data.owner;
+  return app.get('cache.data.owner') || app.get('cache.data.author.username');
 }
 
 function userIsOwner(app) {
-  var author = app.cache.data.author;
-  if (typeof author === 'undefined') {
+  var username = app.get('cache.data.author.username');
+  if (typeof username === 'undefined') {
     return true;
-  }
-  if (author && typeof author === 'object') {
-    author = author.url || author.username;
   }
   var config = utils.parse.sync({cwd: app.cwd});
   if (!config || !config.user) {
@@ -163,6 +176,5 @@ function userIsOwner(app) {
   if (!config || !config.user || typeof config.user.name !== 'string') {
     return;
   }
-  var re = new RegExp(config.user.name, 'i');
-  return re.test(author);
+  return username.indexOf(config.user.name) !== -1;
 }
