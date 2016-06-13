@@ -10,6 +10,8 @@
 var utils = require('./utils');
 
 module.exports = function(config) {
+  config = config || {};
+
   return function(app, base) {
     if (!utils.isValid(app, 'common-questions')) return;
 
@@ -68,11 +70,7 @@ module.exports = function(config) {
       })
       .set('project.owner', 'Project owner?', {
         default: projectOwner(app)
-      })
-
-    /**
-     * Decrecated
-     */
+      });
 
     app.questions.disable('save')
       .set('name', 'Project name?', {
@@ -89,7 +87,7 @@ module.exports = function(config) {
       })
       .set('owner', 'Project owner?', {
         default: projectOwner(app)
-      })
+      });
   };
 };
 
@@ -160,7 +158,7 @@ function userIsOwner(app) {
   }
   var config = utils.parse.sync({cwd: app.cwd});
   if (!config || !config.user) {
-    config = git.sync('global');
+    config = utils.parse.sync('global');
   }
   if (!config || !config.user || typeof config.user.name !== 'string') {
     return;
