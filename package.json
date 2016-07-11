@@ -1,7 +1,7 @@
 {
   "name": "common-questions",
   "description": "An object of questions commonly used by project generators or when initializing projects. Questions can be overridden, updated or extended.",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "homepage": "https://github.com/generate/common-questions",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/common-questions",
@@ -23,7 +23,6 @@
     "test": "mocha"
   },
   "dependencies": {
-    "ask-when": "^0.1.2",
     "base-pkg": "^0.2.4",
     "base-project": "^0.2.1",
     "base-questions": "^0.6.6",
@@ -31,7 +30,7 @@
     "common-config": "^0.1.0",
     "define-property": "^0.2.5",
     "extend-shallow": "^2.0.1",
-    "is-valid-app": "^0.1.1",
+    "is-valid-app": "^0.2.0",
     "lazy-cache": "^2.0.1",
     "omit-empty": "^0.4.1",
     "set-getter": "^0.1.0"
