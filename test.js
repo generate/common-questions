@@ -79,15 +79,12 @@ describe('common-questions', function() {
       assert.equal(question.default, 'MIT');
     });
 
-    it('should add a hint for author.name', function() {
-      var question = app.questions.get('author.name');
-      assert.equal(question.default, 'Jon Schlinkert');
-    });
-
-    it('should add a hint for author.name', function() {
-      var question = app.questions.get('author.name');
-      assert.equal(question.default, 'Jon Schlinkert');
-    });
+    if (!process.env.CI) {
+      it('should add a hint for author.name', function() {
+        var question = app.questions.get('author.name');
+        assert.equal(question.default, 'Jon Schlinkert');
+      });
+    }
 
     it('should get author.name from app.cache.data', function() {
       app.registered = {};
