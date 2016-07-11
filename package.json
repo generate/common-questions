@@ -1,7 +1,7 @@
 {
   "name": "common-questions",
   "description": "An object of questions commonly used by project generators or when initializing projects. Questions can be overridden, updated or extended.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "homepage": "https://github.com/generate/common-questions",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/common-questions",
