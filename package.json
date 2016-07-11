@@ -11,7 +11,9 @@
   "license": "MIT",
   "files": [
     "index.js",
-    "utils.js"
+    "lib",
+    "LICENSE",
+    "README.md"
   ],
   "main": "index.js",
   "engines": {
@@ -21,19 +23,24 @@
     "test": "mocha"
   },
   "dependencies": {
+    "ask-when": "^0.1.2",
     "base-pkg": "^0.2.4",
     "base-project": "^0.2.1",
     "base-questions": "^0.6.6",
+    "camel-case": "^3.0.0",
+    "common-config": "^0.1.0",
+    "define-property": "^0.2.5",
+    "extend-shallow": "^2.0.1",
     "is-valid-app": "^0.1.1",
-    "isobject": "^2.1.0",
     "lazy-cache": "^2.0.1",
-    "mixin-deep": "^1.1.3",
-    "parse-git-config": "^0.4.2"
+    "omit-empty": "^0.4.1",
+    "set-getter": "^0.1.0"
   },
   "devDependencies": {
-    "base": "^0.11.0",
+    "ask-when": "^0.1.1",
+    "base": "^0.11.1",
     "gulp-format-md": "^0.1.9",
-    "mocha": "^2.4.5"
+    "mocha": "^2.5.3"
   },
   "keywords": [
     "answer",
@@ -51,16 +58,13 @@
     "store"
   ],
   "verb": {
+    "toc": false,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
     "plugins": [
       "gulp-format-md"
-    ],
-    "reflinks": [
-      "base",
-      "inquirer",
-      "question-cache",
-      "question-store",
-      "verb",
-      "verb-readme-generator"
     ],
     "related": {
       "list": [
@@ -71,13 +75,15 @@
         "question-store"
       ]
     },
-    "toc": false,
-    "layout": "default",
+    "reflinks": [
+      "base",
+      "question-cache",
+      "question-store",
+      "verb",
+      "verb-generate-readme"
+    ],
     "lint": {
       "reflinks": true
-    },
-    "tasks": [
-      "readme"
-    ]
+    }
   }
 }
