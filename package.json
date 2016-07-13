@@ -25,7 +25,7 @@
   "dependencies": {
     "base-pkg": "^0.2.4",
     "base-project": "^0.2.1",
-    "base-questions": "^0.6.6",
+    "base-questions": "^0.7.1",
     "camel-case": "^3.0.0",
     "common-config": "^0.1.0",
     "define-property": "^0.2.5",
