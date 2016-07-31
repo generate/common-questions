@@ -28,6 +28,7 @@
     "base-questions": "^0.7.1",
     "camel-case": "^3.0.0",
     "common-config": "^0.1.0",
+    "debug": "^2.2.0",
     "define-property": "^0.2.5",
     "extend-shallow": "^2.0.1",
     "is-valid-app": "^0.2.0",

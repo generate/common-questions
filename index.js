@@ -7,6 +7,7 @@
 
 'use strict';
 
+var debug = require('debug')('common-questions');
 var questions = require('./lib/questions');
 var listener = require('./lib/listener');
 var utils = require('./lib/utils');
@@ -17,7 +18,9 @@ module.exports = function(config) {
 
   return function(app) {
     if (!utils.isValid(app, 'common-questions')) return;
-    var opts = utils.extend({}, app.options, config);
+    debug('initializing from <%s>', __filename);
+
+    var opts = utils.extend({}, app.base.options, app.options, config);
     app.cache.data = app.cache.data || {};
 
     /**
@@ -26,7 +29,7 @@ module.exports = function(config) {
 
     app.use(utils.project());
     app.use(utils.pkg());
-    app.use(utils.questions());
+    app.use(utils.questions(opts));
 
     /**
      * Questions
