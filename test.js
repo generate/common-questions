@@ -79,18 +79,20 @@ describe('common-questions', function() {
       assert.equal(question.default, 'MIT');
     });
 
-    if (!process.env.CI) {
-      it('should add a hint for author.name', function() {
-        var question = app.questions.get('author.name');
-        assert.equal(question.default, 'Jon Schlinkert');
-      });
-    }
+    it('should add a hint for author.name', function() {
+      if (process.env.CI) {
+        this.skip();
+        return;
+      }
+
+      var question = app.questions.get('author.name');
+      assert.equal(question.default, 'Jon Schlinkert');
+    });
 
     it('should get author.name from app.cache.data', function() {
       app.registered = {};
       app.set('cache.data.author.name', 'Brian Woodward');
       app.use(questions());
-
       var question = app.questions.get('author.name');
       assert.equal(question.default, 'Brian Woodward');
     });

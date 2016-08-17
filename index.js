@@ -21,6 +21,7 @@ module.exports = function(config) {
     debug('initializing from <%s>', __filename);
 
     var opts = utils.extend({}, app.base.options, app.options, config);
+    app.cache.answers = app.cache.answers || {};
     app.cache.data = app.cache.data || {};
 
     /**
@@ -32,9 +33,9 @@ module.exports = function(config) {
     app.use(utils.questions(opts));
 
     /**
-     * Questions
+     * Default prompt messages.
      *
-     * Default prompt messages. These can be be overridden in your app
+     * These can be be overridden in your app
      * by creating a new question with the same key. For example, the
      * folling will override the `name` question:
      *
@@ -43,10 +44,10 @@ module.exports = function(config) {
      * ```
      */
 
-    questions.all(app, opts);
+    questions(app, opts);
 
     /**
-     * Hints. Provides hints for the default prompts.
+     * Hints for common-questions prompts.
      */
 
     listener(app, opts);
