@@ -29,10 +29,13 @@
     "debug": "^2.2.0",
     "define-property": "^0.2.5",
     "extend-shallow": "^2.0.1",
+    "get-value": "^2.0.6",
     "is-valid-app": "^0.2.0",
     "lazy-cache": "^2.0.1",
+    "mixin-deep": "^1.2.0",
     "omit-empty": "^0.4.1",
-    "set-getter": "^0.1.0"
+    "set-getter": "^0.1.0",
+    "set-value": "^2.0.0"
   },
   "devDependencies": {
     "ask-when": "^0.1.4",
